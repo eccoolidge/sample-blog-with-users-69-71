@@ -28,7 +28,7 @@ def load_user(user_id):
     return db.get_or_404(User, user_id)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')  # connect to db
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')  # connect to sqllite db
 db = SQLAlchemy()
 db.init_app(app)
 
@@ -39,7 +39,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(100))
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(200))
 
     #  acts like a list of BlogPost objects attached to each User:
     posts = relationship("BlogPost", back_populates="author")  # 🚨
